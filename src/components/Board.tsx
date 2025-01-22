@@ -53,14 +53,16 @@ const Board: React.FC = () => {
   return (
     <div>
       <div className="status">{status}</div>
-      <div className="board">
-        {squares.map((square, index) => (
-          <Square
-            key={index}
-            value={square}
-            onClick={() => handleClick(index)}
-          />
-        ))}
+      <div className="wrapper">
+        <div className="board">
+          {squares.map((square, index) => (
+            <Square
+              key={index}
+              value={square}
+              onClick={() => handleClick(index)}
+            />
+          ))}
+        </div>
       </div>
       {winner && (
         <button className="reset-button" onClick={resetGame}>
