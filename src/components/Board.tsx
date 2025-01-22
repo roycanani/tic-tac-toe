@@ -7,6 +7,7 @@ const Board: React.FC = () => {
   );
   const [isXNext, setIsXNext] = useState(true);
 
+  // Function to calculate the winner
   const calculateWinner = (squares: (null | "X" | "O")[]) => {
     const lines = [
       [0, 1, 2],
@@ -31,6 +32,7 @@ const Board: React.FC = () => {
     return null;
   };
 
+  // Handle click events on the squares
   const handleClick = (index: number) => {
     if (squares[index] || calculateWinner(squares)) return;
 
@@ -41,10 +43,15 @@ const Board: React.FC = () => {
   };
 
   const winner = calculateWinner(squares);
+  const isBoardFull = squares.every((square) => square !== null); // Check if all squares are filled
+
   const status = winner
     ? `Winner: ${winner}`
+    : isBoardFull
+    ? "Tie!"
     : `Next Player: ${isXNext ? "X" : "O"}`;
 
+  // Reset the game
   const resetGame = () => {
     setSquares(Array(9).fill(null));
     setIsXNext(true);
@@ -64,7 +71,7 @@ const Board: React.FC = () => {
           ))}
         </div>
       </div>
-      {winner && (
+      {(winner || isBoardFull) && (
         <button className="reset-button" onClick={resetGame}>
           Play Again
         </button>
